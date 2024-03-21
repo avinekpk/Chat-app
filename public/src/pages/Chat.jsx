@@ -3,8 +3,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { allUsersRoutes } from "../utils/APIRoutes";
+import Contacts from "../components/Contacts";
 
-function Chat() {
+export default function Chat() {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -38,7 +39,9 @@ function Chat() {
 
   return (
     <Container>
-      <div className="container"></div>
+      <div className="container">
+        <Contacts contacts={contacts} currentUser={currentUser} />
+      </div>
     </Container>
   );
 }
@@ -52,7 +55,7 @@ const Container = styled.div`
   gap: 1rem;
   align-item: center;
   backgroung-color: #131324;
-  .container {
+  .Container {
     height: 85vh;
     width: 85vh;
     backgroung-color: #00000076;
@@ -62,5 +65,3 @@ const Container = styled.div`
     grid-template-columns: 35% 65%;
   }
 `;
-
-export default Chat;
