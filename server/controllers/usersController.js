@@ -18,8 +18,8 @@ module.exports.register = async (req, res, next) => {
     });
     delete user.password;
     return res.json({ status: true, user });
-  } catch (er) {
-    next(er);
+  } catch (ex) {
+    next(ex);
   }
 };
 
@@ -45,7 +45,29 @@ module.exports.login = async (req, res, next) => {
 
     delete user.password;
     return res.json({ status: true, user });
-  } catch (er) {
-    next(er);
+  } catch (ex) {
+    next(ex);
+  }
+};
+
+module.exports.setAvatar = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const avatarImage = req.body.image;
+    const userData = await User.findByIdAndUpdate(
+      userId,
+      {
+        isAvatarImageSet: true,
+        avatarImage,
+      },
+      { new: true }
+    );
+
+    return res.json({
+      isSet: userData.isAvatarImageSet,
+      image: userData.avatarImage,
+    });
+  } catch (ex) {
+    next(ex);
   }
 };
